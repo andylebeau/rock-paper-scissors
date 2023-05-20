@@ -1,46 +1,47 @@
-const getComputerChoice = () => ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
-const correctPlayerFormat = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-
 function playRound (playerSelection, computerSelection) {
-    playerSelection = correctPlayerFormat(playerSelection)
-    computerSelection = getComputerChoice();
+    // console.log(playerSelection, computerSelection)
+    let result = '';
+    const win = `You Win! ${playerSelection} beats ${computerSelection}.`;
+    const lose = `You Lose! ${computerSelection} beats ${playerSelection}.`;
     if (playerSelection == computerSelection) {
-        return "It's a draw!"
+        result = "It's a draw!";
     }
     else if (playerSelection == 'Rock') {
-        return (computerSelection == 'Scissors') ?
-        `You Win! ${playerSelection} beats ${computerSelection}.` : `You Lose! ${computerSelection} beats ${playerSelection}.`
+        result = (computerSelection == 'Scissors') ? win : lose;
     }
     else if (playerSelection == 'Paper') {
-        return (computerSelection == 'Rock') ?
-        `You Win! ${playerSelection} beats ${computerSelection}.` : `You Lose! ${computerSelection} beats ${playerSelection}.`
+        result = (computerSelection == 'Rock') ? win : lose;
     }
     else if (playerSelection == 'Scissors') {
-        return (computerSelection == 'Paper') ?
-        `You Win! ${playerSelection} beats ${computerSelection}.` : `You Lose! ${computerSelection} beats ${playerSelection}.`
+        result = (computerSelection == 'Paper') ? win : lose;
     }
+    return result;
 }
 
-function game() {
-    let playerTotalWins = 0
-    let computerTotalWins = 0
-    let draws = 0
+let wins = 0;
+let loses = 0;
+let ties = 0;
+let winOrLose = '';
 
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = prompt('Please type rock, paper or scissors')
-        const computerSelection = getComputerChoice;
-        let winOrLose = playRound(playerSelection, computerSelection)
-        if (winOrLose.includes('Win')) {
-            playerTotalWins++;
-        }
-        else if (winOrLose.includes('Lose')) {
-            computerTotalWins++
-        }
-        else {
-            draws++
-        }
-        console.log(winOrLose)
-    }
-    return (draws == 3 ? "It's a draw!" :
-        playerTotalWins > (5 - draws) / 2) ? `You Won! Out of 5 Rounds, you won ${playerTotalWins} with ${draws} draws. The computer won ${computerTotalWins} rounds` :
-        `You Lost! Out of 5 Rounds, the computer won ${5 - playerTotalWins - draws} rounds with ${draws} draws.`}
+
+    const getComputerSelection = () => ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
+
+    const playerChoice = document.querySelectorAll('button');
+    playerChoice.forEach((choice) => {
+        choice.addEventListener('click', () => {
+            const resultMessage = document.querySelector('#round');
+            winOrLose = playRound(choice.id, getComputerSelection())
+            resultMessage.textContent = winOrLose;
+            if (winOrLose.includes('Win')) {wins++}
+            else if (winOrLose.includes('Lose')) {loses++}
+            else {ties++}
+
+            const playerScore = document.querySelector('.you');
+            const totalTies = document.querySelector('.ties');
+            const computerScore = document.querySelector('.computer');
+            playerScore.textContent = `You: ${wins}`;
+            totalTies.textContent = `Ties: ${ties}`;
+            computerScore.textContent = `Computer: ${loses}`;
+        });
+        console.log(wins, loses, ties)
+    });
