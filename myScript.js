@@ -55,7 +55,7 @@ function gameOver() {
     playerChoice.forEach(choice => {
         choice.disabled = true;
     })
-    resultMessage.textContent = (wins == 5) ? 'Ali wants a rematch!' : 'Request a rematch?'
+    resultMessage.textContent = (wins == 5) ? 'The Champ wants a rematch!' : 'Request a rematch?'
     const newGame = document.querySelector('#choices');
-    newGame.textContent = (wins == 5) ? 'YOU are the new CHAMPION!' : 'Mohammad Ali is still UNDEFEATED!'
+    newGame.textContent = (wins == 5) ? 'YOU are the new CHAMPION!' : 'The Champ is still UNDEFEATED!'
 }
