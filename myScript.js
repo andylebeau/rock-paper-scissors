@@ -57,5 +57,5 @@ function gameOver() {
     })
     resultMessage.textContent = (wins == 5) ? 'Ali wants a rematch!' : 'Request a rematch?'
     const newGame = document.querySelector('#choices');
-    newGame.textContent = (wins == 5) ? 'YOU are the new CHAMPION!' : 'Mohammad Ali is UNDEFEATED!'
+    newGame.textContent = (wins == 5) ? 'YOU are the new CHAMPION!' : 'Mohammad Ali is still UNDEFEATED!'
 }
