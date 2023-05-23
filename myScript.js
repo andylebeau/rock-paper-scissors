@@ -3,6 +3,8 @@ let loses = 0;
 let ties = 0;
 const resultMessage = document.querySelector('#round');
 
+
+
 function playRound (playerSelection) {
     const computerSelection = getComputerSelection()
     let result = '';
@@ -42,12 +44,12 @@ const playerChoice = document.querySelectorAll('button');
     });
 
 function updateScoreBoard(winOrLoss) {
-    resultMessage.textContent = winOrLoss;
     const playerScore = document.querySelector('.you');
-    playerScore.textContent = `${wins}`;
     const totalTies = document.querySelector('.ties');
-    totalTies.textContent = `${ties}`;
     const computerScore = document.querySelector('.computer');
+    resultMessage.textContent = winOrLoss;
+    playerScore.textContent = `${wins}`;
+    totalTies.textContent = `${ties}`;
     computerScore.textContent = `${loses}`;
 }
 
