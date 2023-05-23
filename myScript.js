@@ -44,18 +44,16 @@ const playerChoice = document.querySelectorAll('button');
 function updateScoreBoard(winOrLoss) {
     resultMessage.textContent = winOrLoss;
     const playerScore = document.querySelector('.you');
-    playerScore.textContent = `You: ${wins}`;
+    playerScore.textContent = `${wins}`;
     const totalTies = document.querySelector('.ties');
-    totalTies.textContent = `Ties: ${ties}`;
+    totalTies.textContent = `${ties}`;
     const computerScore = document.querySelector('.computer');
-    computerScore.textContent = `Computer: ${loses}`;
+    computerScore.textContent = `${loses}`;
 }
 
 function gameOver() {
     playerChoice.forEach(choice => {
         choice.disabled = true;
     })
-    resultMessage.textContent = (wins == 5) ? 'The Champ wants a rematch!' : 'Request a rematch?'
-    const newGame = document.querySelector('#choices');
-    newGame.textContent = (wins == 5) ? 'YOU are the new CHAMPION!' : 'The Champ is still UNDEFEATED!'
+    resultMessage.textContent = (wins == 5) ? 'YOU WON!' : 'The Computer won.';
 }
