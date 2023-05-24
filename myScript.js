@@ -7,6 +7,7 @@ const resultMessage = document.querySelector('.scoreboard');
 const playerScore = document.querySelector('.you');
 const totalTies = document.querySelector('.ties');
 const computerScore = document.querySelector('.computer');
+const gameOverMessage = document.querySelector('.fighters');
 
 
 function playRound (playerSelection) {
@@ -52,24 +53,24 @@ function updateScoreBoard(winOrLoss) {
     playerScore.textContent = `${wins}`;
     totalTies.textContent = `${ties}`;
     computerScore.textContent = `${loses}`;
-    winner == 'you' ?
-        (playerScore.style.borderColor = 'green',
+    winner == 'you'
+        ? (playerScore.style.borderColor = 'green',
          playerScore.style.color = 'green',
          resultMessage.style.borderColor = 'green',
          resultMessage.style.color = 'green')
         :
         (playerScore.style.borderColor = 'gray',
          playerScore.style.color = 'black');
-    winner == 'tie' ?
-        (totalTies.style.borderColor = 'orange',
+    winner == 'tie'
+        ? (totalTies.style.borderColor = 'orange',
          totalTies.style.color = 'orange',
          resultMessage.style.borderColor = 'orange',
          resultMessage.style.color = 'orange')
         :
         (totalTies.style.borderColor = 'gray',
          totalTies.style.color = 'black');
-    winner == 'computer' ?
-        (computerScore.style.borderColor = 'maroon',
+    winner == 'computer'
+        ? (computerScore.style.borderColor = 'maroon',
          computerScore.style.color = 'maroon',
          resultMessage.style.borderColor = 'maroon',
          resultMessage.style.color = 'maroon')
@@ -83,6 +84,13 @@ function gameOver() {
     playerChoice.forEach(choice => {
         choice.disabled = true;
     })
-    resultMessage.textContent = (wins == 5) ? 'YOU WON! Best out of 5.' : 'The Computer won best out of 5.';
+    resultMessage.textContent = (wins == 5)
+        ? 'YOU WON! Best out of 5.'
+        : 'The Computer won best out of 5.';
+    gameOverMessage.textContent = 'PLAY AGAIN'
 
+    gameOverMessage.querySelector('.fighters');
+    gameOverMessage.addEventListener('click', () => {
+    location.reload();
+});
 }
