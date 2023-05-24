@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ROCK - PAPER - SCISSORS</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script defer src="myScript.js"></script>
 </head>
@@ -13,9 +13,10 @@
         <h1>ROCK - PAPER - SCISSORS</h1>
         <h2>The first to score FIVE is the CHAMP!</h2>
     </div>
-    <div id="fighters">
+    <div class="fighters">
         <h2>CHOOSE YOUR FIGHTER</h2>
         <div class="choice">
+            <!-- Used ID to avoid uppercase/lowercase issues -->
             <button id="Rock"><img src="images/rock.png" alt="rock"></button>
             <button id="Paper"><img src="images/paper.png" alt="paper"></button>
             <button id="Scissors"><img src="images/scissors.png" alt="scissors"></button>
@@ -23,15 +24,18 @@
     </div>
     <div class="scoreboard">
         <h2>SCORE BOARD</h2>
-        <div id="round">
-            ROUND RESULTS
-        </div>
-        <div class="scores">
-            <div class="you">0</div>
-            <div class="ties">0</div>
-            <div class="computer">0</div>
-        </div>
-    </div>  
+    </div>
+    <div class="slates">
+         <div class="you">0</div>
+        <div class="ties">0</div>
+        <div class="computer">0</div>
+    </div>
+    <div class="labels">
+        <div>PLAYER</div>
+        <div>DRAWS</div>
+        <div>COMPUTER</div>
+    </div>
+    <div class="newgame"></div>
 
 </body>
 </html>

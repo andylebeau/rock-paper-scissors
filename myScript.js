@@ -1,8 +1,7 @@
 let wins = 0;
 let loses = 0;
 let ties = 0;
-const resultMessage = document.querySelector('#round');
-
+let winner = '';
 
 
 function playRound (playerSelection) {
@@ -23,9 +22,9 @@ function playRound (playerSelection) {
         result = (computerSelection == 'Paper') ? win : lose;
     }
 
-    if (result == win) {wins++}
-    else if (result == lose) {loses++}
-    else {ties++}
+    if (result == win) {wins++, winner = 'you'}
+    else if (result == lose) {loses++, winner = 'computer'}
+    else {ties++, winner = 'tie'}
 
     updateScoreBoard(result);
 
@@ -44,6 +43,7 @@ const playerChoice = document.querySelectorAll('button');
     });
 
 function updateScoreBoard(winOrLoss) {
+    const resultMessage = document.querySelector('.scoreboard h2');
     const playerScore = document.querySelector('.you');
     const totalTies = document.querySelector('.ties');
     const computerScore = document.querySelector('.computer');
@@ -51,11 +51,22 @@ function updateScoreBoard(winOrLoss) {
     playerScore.textContent = `${wins}`;
     totalTies.textContent = `${ties}`;
     computerScore.textContent = `${loses}`;
+    winner == 'you' ?
+        (playerScore.style.borderColor = 'green', playerScore.style.color = 'green') :
+        (playerScore.style.borderColor = 'gray', playerScore.style.color = 'black');
+    winner == 'tie' ?
+        (totalTies.style.borderColor = 'green', totalTies.style.color = 'green') :
+        (totalTies.style.borderColor = 'gray', totalTies.style.color = 'black');
+    winner == 'computer' ?
+        (computerScore.style.borderColor = 'green', computerScore.style.color = 'green') :
+        (computerScore.style.borderColor = 'gray', computerScore.style.color = 'black');
+
 }
 
 function gameOver() {
     playerChoice.forEach(choice => {
         choice.disabled = true;
     })
+    const resultMessage = document.querySelector('.scoreboard h2');
     resultMessage.textContent = (wins == 5) ? 'YOU WON!' : 'The Computer won.';
 }
