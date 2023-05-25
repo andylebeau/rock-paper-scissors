@@ -83,15 +83,6 @@ button:hover img {
     font-weight: bold;
 }
 
-.fighters {
-    background-color: white;
-}
-
 .fighters:hover {
     cursor: pointer;
-}
-
-.you {
-    background-image: url();
-    background-size: contain;
 }

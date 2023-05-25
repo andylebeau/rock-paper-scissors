@@ -7,15 +7,19 @@ const resultMessage = document.querySelector('.scoreboard');
 const playerScore = document.querySelector('.you');
 const totalTies = document.querySelector('.ties');
 const computerScore = document.querySelector('.computer');
+const drawsSubTitleToggle = document.querySelector('.draws');
 const gameOverMessage = document.querySelector('.fighters');
 
 
 function playRound (playerSelection) {
+    playerChoice.forEach(choice => {
+        choice.disabled = true;
+    });
     const computerSelection = getComputerSelection()
-    slateBackGround(computerSelection, 'computer');
+    showRoundSlate(playerSelection, computerSelection)
     let result = '';
     const win = `${playerSelection} beats ${computerSelection}.`;
-    const lose = `${computerSelection} beats ${playerSelection}.`;
+    const lose = `${playerSelection} loses to ${computerSelection}.`;
     if (playerSelection == computerSelection) {
         result = "It's a draw!";
     }
@@ -32,30 +36,43 @@ function playRound (playerSelection) {
     if (result == win) {wins++, winner = 'you'}
     else if (result == lose) {loses++, winner = 'computer'}
     else {ties++, winner = 'tie'}
+    
+    drawsSubTitleToggle.textContent = '';
 
-    updateScoreBoard(result);
+    setTimeout(updateScoreBoard.bind(null, result), 2000);
 
     if (wins == 5 || loses == 5) {
         gameOver()
     }
 }
 
-const getComputerSelection = () => ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
+// const getComputerSelection = () => ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
+function getComputerSelection() {
+    const compRandom = ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
+    getSlateBackGroundImage(compRandom, 'computer');
+    return compRandom;
+}
 
 const playerChoice = document.querySelectorAll('button');
     playerChoice.forEach((choice) => {
         choice.addEventListener('click', () => {
-            slateBackGround(choice.id, 'you')
-            playRound(choice.id)    
+            getSlateBackGroundImage(choice.id, 'you')
+            playRound(choice.id)
         });
     });
 
-function slateBackGround(image, who) {
-    console.log(image, who)
-    document.querySelector(`.${who}`).style.backgroundImage=`url(images/${image}.png)`;
+function getSlateBackGroundImage(image, who) {
+    const slateSelector = document.querySelector(`.${who}`);
+    slateSelector.style.backgroundImage = `url(images/${image}.png)`;
+    resetSlateColors();
 }
 
 function updateScoreBoard(winOrLoss) {
+    const getSlateBackGroundImage = document.querySelectorAll('#slate');
+    getSlateBackGroundImage.forEach((slate) => {
+        slate.style.backgroundImage = 'url()';
+    })
+    drawsSubTitleToggle.textContent = 'DRAWS';
     resultMessage.textContent = winOrLoss;
     playerScore.textContent = `${wins}`;
     totalTies.textContent = `${ties}`;
@@ -85,12 +102,38 @@ function updateScoreBoard(winOrLoss) {
         (computerScore.style.borderColor = 'gray',
          computerScore.style.color = 'black');
 
+    playerChoice.forEach(choice => {
+    choice.disabled = false;
+    });
+
+}
+
+function resetSlateColors() {
+    playerScore.style.borderColor = 'gray';
+    totalTies.style.borderColor = 'gray';
+    computerScore.style.borderColor = 'gray'
+    playerScore.style.color = 'black';
+    totalTies.style.color = 'black';
+    computerScore.style.color = 'black';
+}
+
+function showRoundSlate(you, computer) {
+    resultMessage.style.color = 'black';
+    resultMessage.style.borderColor = 'gray';
+    resultMessage.textContent = `${you} vs ${computer}`;
+    playerScore.textContent = '';
+    computerScore.textContent = '';
+    you == computer ?
+        (totalTies.textContent = '=',
+         totalTies.style.color = 'orange',
+         totalTies.style.borderColor = 'orange')
+        : totalTies.textContent = 'vs';
 }
 
 function gameOver() {
     playerChoice.forEach(choice => {
         choice.disabled = true;
-    })
+    });
     resultMessage.textContent = (wins == 5)
         ? 'YOU WON! Best out of 5.'
         : 'The Computer won best out of 5.';
