@@ -3,6 +3,7 @@ let loses = 0;
 let ties = 0;
 let winner = '';
 
+
 const resultMessage = document.querySelector('.scoreboard');
 const playerScore = document.querySelector('.you');
 const totalTies = document.querySelector('.ties');
@@ -39,11 +40,7 @@ function playRound (playerSelection) {
     
     drawsSubTitleToggle.textContent = '';
 
-    setTimeout(updateScoreBoard.bind(null, result), 2000);
-
-    if (wins == 5 || loses == 5) {
-        gameOver()
-    }
+    setTimeout(updateScoreBoard.bind(null, result), 1500);
 }
 
 // const getComputerSelection = () => ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
@@ -105,6 +102,10 @@ function updateScoreBoard(winOrLoss) {
     playerChoice.forEach(choice => {
     choice.disabled = false;
     });
+
+    if (wins == 5 || loses == 5) {
+        gameOver()
+    }
 
 }
 
