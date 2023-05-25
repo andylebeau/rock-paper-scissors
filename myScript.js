@@ -12,6 +12,7 @@ const gameOverMessage = document.querySelector('.fighters');
 
 function playRound (playerSelection) {
     const computerSelection = getComputerSelection()
+    slateBackGround(computerSelection, 'computer');
     let result = '';
     const win = `${playerSelection} beats ${computerSelection}.`;
     const lose = `${computerSelection} beats ${playerSelection}.`;
@@ -44,9 +45,15 @@ const getComputerSelection = () => ['Rock', 'Paper', 'Scissors'][Math.floor(Math
 const playerChoice = document.querySelectorAll('button');
     playerChoice.forEach((choice) => {
         choice.addEventListener('click', () => {
+            slateBackGround(choice.id, 'you')
             playRound(choice.id)    
         });
     });
+
+function slateBackGround(image, who) {
+    console.log(image, who)
+    document.querySelector(`.${who}`).style.backgroundImage=`url(images/${image}.png)`;
+}
 
 function updateScoreBoard(winOrLoss) {
     resultMessage.textContent = winOrLoss;
@@ -89,8 +96,11 @@ function gameOver() {
         : 'The Computer won best out of 5.';
     gameOverMessage.textContent = 'PLAY AGAIN'
 
+    // Start game over again
     gameOverMessage.querySelector('.fighters');
+    gameOverMessage.style.backgroundColor = 'green';
+    gameOverMessage.style.color = 'white';
     gameOverMessage.addEventListener('click', () => {
     location.reload();
-});
+    });
 }
